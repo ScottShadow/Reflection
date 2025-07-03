@@ -1,0 +1,13 @@
+// {
+//   "extends": ["eslint:recommended", "plugin:react/recommended"],
+//   "parserOptions": {
+//     "ecmaVersion": "latest", // or 2020, 2021, etc. to match your JS version
+//     "ecmaFeatures": { "jsx": true },
+//     "sourceType": "module" // This is the crucial line
+//   },
+//   "plugins": ["react"]
+// }
+
+{
+  "extends": ["airbnb", "airbnb/hooks"]
+}
