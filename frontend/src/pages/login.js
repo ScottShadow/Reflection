@@ -1,8 +1,7 @@
-// import { PrimaryButton } from "./components"
 import '../style.scss';
 import { AppContext } from '../index';
 import { useContext } from 'react';
-import { PrimaryButton, InputLabel, AnchorLink } from './components';
+import { Button, InputLabel, AnchorLink } from './components';
 export const Login = () => {
   const { getUser } = useContext(AppContext);
 
@@ -26,7 +25,7 @@ export const Login = () => {
         <div className='login-card' style={{ justifyContent: 'space-evenly' }}>
           <InputLabel id='email' name='email' type='email' text='Email'></InputLabel>
           <InputLabel id='password' name='password' type='password' text='Password'></InputLabel>
-          <PrimaryButton style={{ width: '260px' }} onClick={LoginUser} text='Login'></PrimaryButton>
+          <Button className='primary' style={{ width: '260px' }} onClick={LoginUser} text='Login'></Button>
 
           <AnchorLink href='auth/reset' text='Forgot Password?'></AnchorLink>
         </div>

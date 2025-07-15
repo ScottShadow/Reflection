@@ -1,18 +1,30 @@
 import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import { Login } from './pages/login';
 import { Register } from './pages/signup';
 import './style.scss';
+import { Components } from './pages/components';
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
-function Home() {
+function Counter() {
   const [count, setCount] = useState(0);
-
   return (
     <>
       <label htmlFor='counter'>Click Me </label>
       <button id='counter' className='primary' onClick={() => setCount(count + 1)}>{count}</button>
+    </>)
+
+}
+function Home() {
+
+  return (
+    <>
+      <div style={{ display: 'flex', gap: "10px" }}>
+        <Link to='/components'>Components</Link>
+        <Link to='/auth/login'>Login</Link>
+        <Link to='/counter'>Counter</Link>
+      </div>
     </>
   )
 
@@ -84,6 +96,8 @@ function App() {
         <Route path='/' element={<Home />}></Route>
         <Route path='/auth/login' element={<Login />}></Route>
         <Route path='/auth/register' element={<Register />}></Route>
+        <Route path='/components' element={<Components />}></Route>
+        <Route path='/counter' element={<Counter />}></Route>
       </Routes>
     </BrowserRouter>
 

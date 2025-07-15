@@ -1,6 +1,6 @@
 import { useContext } from 'react';
 import '../style.scss';
-import { AnchorLink, InputLabel, PrimaryButton } from './components';
+import { AnchorLink, InputLabel, Button } from './components';
 import { AppContext } from '..';
 
 export const Register = () => {
@@ -29,7 +29,7 @@ export const Register = () => {
           <InputLabel id='username' type='username' name='username' text='Username'></InputLabel>
           <InputLabel id='email' name='email' type='email' text='Email'></InputLabel>
           <InputLabel id='password' name='password' type='password' text='Password'></InputLabel>
-          <PrimaryButton style={{ width: '260px' }} onClick={RegisterUser} text='Register'></PrimaryButton>
+          <Button className='primary' style={{ width: '260px' }} onClick={RegisterUser} text='Register'></Button>
 
           <AnchorLink href='/auth/login' text='Already Have an account? Login'></AnchorLink>
         </div>

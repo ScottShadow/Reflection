@@ -1,111 +1,174 @@
 html,
 body,
 #root {
-  height: 100%;
-  /* Ensures they take up 100% of their parent's height */
-  margin: 0;
-  /* Removes default browser margin */
-  padding: 0;
-  /* Removes default browser padding */
-  overflow: hidden;
-  /* Prevents scrollbars if content slightly exceeds viewport */
+    height: 100%;
+    /* Ensures they take up 100% of their parent's height */
+    margin: 0;
+    /* Removes default browser margin */
+    padding: 0;
+    /* Removes default browser padding */
+    overflow: none;
+    /* Prevents scrollbars if content slightly exceeds viewport */
 }
+
 button.primary {
-  border-radius: 10px;
-  color: white;
-  height: 30px;
-  // width: 260px;
-  background-color: hsl(271, 76%, 53%);
-  box-shadow: inset 0 1px 0 hsl(271, 76%, 70%), 0 13px 30px black,
-    0 5px 2px black;
-  /* box-shadow: 0 13px 30px black, 0 5px 5px black; */
+    border-radius: 10px;
+    color: white;
+    height: 30px;
+    // width: 260px;
+    background-color: hsl(271, 76%, 53%);
+    box-shadow: inset 0 1px 0 hsl(271, 76%, 70%), 0 13px 30px black,
+        0 5px 2px black;
+    /* box-shadow: 0 13px 30px black, 0 5px 5px black; */
 }
 
 button.primary:focus {
-  box-shadow: inset 0 -2px 10px hsl(271, 76%, 20%);
+    box-shadow: inset 0 -2px 10px hsl(271, 76%, 20%);
 }
 
 button.primary:hover {
-  background-color: hsl(271, 76%, 63%);
+    background-color: hsl(271, 76%, 63%);
+}
+
+button.secondary {
+    border-radius: 10px;
+    color: hsl(271, 76%, 85%);
+    height: 30px;
+    // width: 260px;
+    background-color: transparent;
+    box-shadow: inset 0 0px 2px hsl(271, 76%, 70%), 0 13px 30px black,
+        0 5px 2px black;
+}
+
+button.tertiary {
+    border: 0px none transparent;
+    border-radius: 10px;
+    color: hsl(0, 0%, 90%);
+    height: 30px;
+    // width: 260px;
+    background-color: transparent;
+    box-shadow: 0 13px 30px black,
+        0 5px 2px black;
+}
+
+button.tertiary:focus {
+    color: hsl(0, 0%, 50%);
+    border: 1px solid rgb(143, 142, 142);
 }
 
 .login-card {
-  display: flex;
-  min-height: 300px;
-  min-width: 350px;
-  padding-top: 15px;
-  padding-bottom: 15px;
-  color: white;
-  background-color: hsla(0, 0%, 100%, 0.1);
-  backdrop-filter: blur(5px);
-  border-radius: 10px;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  border: 1px solid hsl(271, 76%, 63%);
-  box-shadow: 0 0 45px 10px hsl(0, 0%, 0%), 0 0 5px 2px black,
-    inset 0 2px 2px hsl(271, 76%, 76%);
+    display: flex;
+    min-height: 300px;
+    min-width: 350px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    color: white;
+    background-color: hsla(0, 0%, 100%, 0.1);
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    border: 1px solid hsl(271, 76%, 63%);
+    box-shadow: 0 0 45px 10px hsl(0, 0%, 0%), 0 0 5px 2px black,
+        inset 0 2px 2px hsl(271, 76%, 76%);
 }
 
 .container {
-  height: 100%;
-  width: 100%;
-  display: flex;
-  overflow: hidden;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    overflow: hidden;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
+
 .loginContainer {
-  background: {
-    image: url("./assets/purple_stars-wallpaper-1920x1080.jpg");
-    color: white;
-    size: cover;
-    repeat: no-repeat;
-    position: center center;
-  }
+    background: {
+        image: url("./assets/purple_stars-wallpaper-1920x1080.jpg");
+        color: white;
+        size: cover;
+        repeat: no-repeat;
+        position: center center;
+    }
 }
+
 #h1-login {
-  color: white;
+    color: white;
 }
 
 input {
-  min-width: 260px;
-  margin: 10px;
-  /* border: 0px solid hsl(271, 76%, 43%); */
-  border-radius: 10px;
-  padding: 6px;
-  color: hsl(0, 0%, 100%, 0.8);
-  background-color: hsl(271, 76%, 63%, 0);
-  box-shadow: inset 0 -2px 10px hsl(271, 76%, 7%);
-  transition: 0.5s border ease-in, 0.5s background-color ease-out;
+    min-width: 260px;
+    margin: 10px;
+    /* border: 0px solid hsl(271, 76%, 43%); */
+    border-radius: 10px;
+    padding: 6px;
+    color: hsl(0, 0%, 100%, 0.8);
+    background-color: hsl(271, 76%, 63%, 0);
+    box-shadow: inset 0 -2px 10px hsl(271, 76%, 7%);
+    transition: 0.5s border ease-in, 0.5s background-color ease-out;
 }
 
 input:-webkit-autofill,
 input:-webkit-autofill:hover {
-  -webkit-box-shadow: 0 0 0px 1000px hsl(271, 76%, 09%, 1) inset !important;
-  /* This is the hack for background-color */
-  -webkit-text-fill-color: hsl(0, 0%, 100%, 0.8) !important;
-  /* To ensure text color isn't overridden */
+    -webkit-box-shadow: 0 0 0px 1000px hsl(271, 76%, 09%, 1) inset !important;
+    /* This is the hack for background-color */
+    -webkit-text-fill-color: hsl(0, 0%, 100%, 0.8) !important;
+    /* To ensure text color isn't overridden */
 }
 
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
-  -webkit-box-shadow: 0 0 0px 1000px hsl(271, 76%, 63%, 1) inset !important;
-  /* This is the hack for background-color */
-  -webkit-text-fill-color: hsl(0, 0%, 100%, 0.8) !important;
-  /* To ensure text color isn't overridden */
+    -webkit-box-shadow: 0 0 0px 1000px hsl(271, 76%, 63%, 1) inset !important;
+    /* This is the hack for background-color */
+    -webkit-text-fill-color: hsl(0, 0%, 100%, 0.8) !important;
+    /* To ensure text color isn't overridden */
 }
 
 input:focus {
-  background-color: hsl(271, 76%, 63%, 0.4);
-  box-shadow: inset 0 2 10px hsl(271, 76%, 44%);
-  outline: none;
-  color: hsl(0, 0%, 100%);
-  border: 2px solid hsl(271, 76%, 53%);
-  transition: 0.5s border ease-in, 0.5s background-color ease-out;
+    background-color: hsl(271, 76%, 63%, 0.4);
+    box-shadow: inset 0 2 10px hsl(271, 76%, 44%);
+    outline: none;
+    color: hsl(0, 0%, 100%);
+    border: 2px solid hsl(271, 76%, 53%);
+    transition: 0.5s border ease-in, 0.5s background-color ease-out;
 }
+
 .canGlow {
-  background-color: hsla(0, 0%, 0%, 0);
-  text-shadow: 0 0 10px hsl(271, 76%, 70%);
+    background-color: hsla(0, 0%, 0%, 0);
+    text-shadow: 0 0 10px hsl(271, 76%, 70%);
+}
+
+.questionCard {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    width: auto;
+    background-color: #0E0E0E;
+    align-items: center;
+    padding: 8% 8%;
+    color: white;
+    gap: 22px;
+    border-radius: 20px;
+    filter: drop-shadow(4px 4px 4px #1D0E27);
+}
+
+.pads {
+    padding-top: 14px;
+    padding-bottom: 14px;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+
+textarea {
+    background-color: transparent;
+    color: whitesmoke;
+    width: 100%;
+    height: 200px;
+    border-radius: 15px;
+    outline: none;
+    padding: 10px;
+    position: relative;
+    box-shadow: inset 0 -2px 10px hsl(271, 76%, 7%);
 }
