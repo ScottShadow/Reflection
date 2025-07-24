@@ -5,6 +5,7 @@ import { Login } from './pages/login';
 import { Register } from './pages/signup';
 import './style.scss';
 import { Components } from './pages/components';
+import { MemoryVault } from './pages/memory';
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
 function Counter() {
@@ -98,6 +99,7 @@ function App() {
         <Route path='/auth/register' element={<Register />}></Route>
         <Route path='/components' element={<Components />}></Route>
         <Route path='/counter' element={<Counter />}></Route>
+        <Route path='/memory' element={<MemoryVault />}></Route>
       </Routes>
     </BrowserRouter>
 

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 export function Button({ text, functions, style, className = 'primary' }) {
   function onClick() {
+    if (!functions) return
     functions.forEach(element => {
       element.call(null, []);
     });
@@ -114,16 +115,79 @@ export function CardCaroux({ children }) {
     </div>
   )
 }
+
+export function DiveCard({ cardTitle, cardContent, buttonText }) {
+  return (
+    <>
+      <div className='diveCard'>
+        <div style={{ fontSize: '19px', padding: '0px 0px' }}>{cardTitle}</div>
+        <div style={{ padding: '5px 0px' }}>{cardContent}</div>
+        <Button text={buttonText} className='primary' style={{ alignSelf: 'end' }}></Button>
+      </div>
+    </>
+  )
+}
+DiveCard.propTypes = {
+  cardTitle: PropTypes.string,
+  cardContent: PropTypes.string,
+  buttonText: PropTypes.string
+}
+
+export function QuoteCard({ cardContent }) {
+  return (
+    <>
+      <div style={{ border: '2px solid hsl(0, 0%, 0%,0.3)', borderRadius: '5px', display: 'flex', flexDirection: 'column', flexWrap: 'wrap', alignItems: 'center', gap: '10px', padding: '5px 20px', color: 'white', backdropFilter: 'blur(4px)' }}>
+        <div style={{ fontSize: '14px' }}>Quote of the day</div>
+        <div style={{ fontSize: '14px' }}>
+          {cardContent}
+        </div>
+      </div >
+    </>
+  )
+}
+export function Accordion({ accHead, accContent }) {
+  const [displaying, usediplaying] = useState(false);
+  function showAccordion() {
+    usediplaying(!displaying);
+
+  }
+  return (
+    <>
+      <div style={{ fontSize: '14px', color: 'white', display: 'flex', flexDirection: 'column', gap: '16px', padding: '16px', backgroundColor: 'hsl(0,0%,0%,0.5)' }}>
+        <div onClick={showAccordion} style={{ fontWeight: 'bold', display: 'flex', flexDirection: 'row', justifyContent: 'space-between' }}>{accHead}{displaying !== true ? <svg style={{ alignSelf: 'center', width: '12px', height: "8px", fill: 'none' }} viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg">
+          <path style={{ stroke: 'white', strokeWidth: '2px', strokeLinecap: "round", strokeLinejoin: 'round' }} d="M1 1.5L6 6.5L11 1.5" />
+        </svg> :
+          <svg style={{ alignSelf: 'center', width: '12px', height: "8px", fill: 'none' }} viewBox="0 0 12 8" xmlns="http://www.w3.org/2000/svg">
+            <path style={{ stroke: 'white', strokeWidth: '2px', strokeLinecap: "round", strokeLinejoin: 'round' }} d="M11 6.5L6 1.5L1 6.5" />
+          </svg>}
+
+        </div>
+        {displaying && <div style={{ fontSize: '14px', fontWeight: 'lighter' }}>{accContent}</div>}
+      </div >
+    </>
+  )
+}
+
+
 export function Components() {
   return (
 
     <><div style={{ height: '100svh', width: '100svw', display: 'flex', flexDirection: 'column', gap: '30px', padding: '20px', backgroundColor: "hsla(0, 0%, 15%, 1.00)" }}>
-      <CardCaroux><Card state='' cardName={"Integral lens"}>
+      {/* <CardCaroux><Card state='' cardName={"Integral lens"}>
         <p>From your personal perspective, what feelings, beliefs, and past experiences are shaping this?</p>
-      </Card></CardCaroux>
+      </Card></CardCaroux> */}
       {/* <Card state='end' cardName={"Integral lens"}>
         <p>From your personal perspective, what feelings, beliefs, and past experiences are shaping this?</p>
       </Card> */}
+      <Accordion accHead={"MyAccordion"} accContent={"Hello Im Here"}></Accordion>
+      <Accordion accHead={"You already hold the keys to understanding."} accContent={"Hello Im Here"}></Accordion>
+
+      <QuoteCard cardContent={"Lorem ipsum Lorem ipsum Lorem ipsum quote of the day Lorem ipsum"}></QuoteCard>
+      <div style={{ display: 'flex', flexDirection: 'row', gap: '5px', flexWrap: 'wrap', justifyContent: 'center' }}>
+        <DiveCard cardTitle={"Deep Dive"} cardContent={"Explore the layers of your experience with a guided, in-depth reflection."} buttonText={"Go Deeper"}></DiveCard>
+        <DiveCard cardTitle={"Deep Dive"} cardContent={"Explore the layers of your experience with a guided, in-depth reflection."} buttonText={"Go Deeper"}></DiveCard>
+        <DiveCard cardTitle={"Memory Vault"} cardContent={"Revisit your past insights and observe your growth over time."} buttonText={"Star Gaze"}></DiveCard>
+      </div>
       <div style={{ height: 'auto', width: 'auto', display: 'flex', flexDirection: 'row', flexWrap: 'wrap', gap: '30px' }}>
         <Button className='primary' text={"My Button"} style={{ width: "100px" }}></Button>
         <Button className='secondary' text={"My Button"} style={{ width: "100px" }}></Button>
