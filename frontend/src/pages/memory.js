@@ -34,7 +34,7 @@ export function MemoryVault() {
   }
   return (
     <div ref={myWindow} style={{ color: 'white', height: '100svh', width: '100svw', backgroundColor: '#202020' }}>
-      <svg ref={myCanvas} xmlns="http://www.w3.org/2000/svg">{constellation.length && constellation.map((point, index) => {
+      <svg className='starSvg' ref={myCanvas} xmlns="http://www.w3.org/2000/svg">{constellation.length && constellation.map((point, index) => {
         return (
           <polyline key={index} points={point} xmlns="http://www.w3.org/2000/svg"></polyline>
         )

@@ -6,6 +6,7 @@ import { Register } from './pages/signup';
 import './style.scss';
 import { Components } from './pages/components';
 import { MemoryVault } from './pages/memory';
+import Home from './pages/home';
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
 function Counter() {
@@ -17,11 +18,12 @@ function Counter() {
     </>)
 
 }
-function Home() {
+function Links() {
 
   return (
     <>
       <div style={{ display: 'flex', gap: "10px" }}>
+        <Link to='/'>HomePage</Link>
         <Link to='/components'>Components</Link>
         <Link to='/auth/login'>Login</Link>
         <Link to='/counter'>Counter</Link>
@@ -95,6 +97,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Home />}></Route>
+        <Route path='/links' element={<Links />}></Route>
         <Route path='/auth/login' element={<Login />}></Route>
         <Route path='/auth/register' element={<Register />}></Route>
         <Route path='/components' element={<Components />}></Route>
