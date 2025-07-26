@@ -48,7 +48,7 @@ export function Card({ cardName, children, state, style, functions }) {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', padding: "0px 0px", alignItems: 'center' }}>
             <p className='cardName'>{cardName}</p>
             {children}
-            <TextArea></TextArea>
+            <TextArea areaHeight='200px'></TextArea>
           </div>
         </div>
         <div style={{ width: '100%', display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: mydisplay, alignItems: 'center', alignContent: 'flex-end' }}>
@@ -67,17 +67,16 @@ export function Card({ cardName, children, state, style, functions }) {
     </div>
   )
 }
-export function TextArea() {
+export function TextArea({ areaHeight }) {
   return (
-    <>
-      <div style={{ display: 'flex', flexDirection: 'row', alignContent: 'center', position: 'relative', height: 'auto', width: '100%', backgroundColor: 'transparent' }}>
-        <textarea></textarea>
-        <svg style={{ position: 'absolute', bottom: '0px', right: '0px', padding: '5px' }} width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M6.523 0.353516L0.353516 6.523M6.98064 3.89589L3.8959 6.98063" stroke="white" strokeOpacity="0.4" />
-        </svg>
 
-      </div >
-    </>
+    <div style={{ display: 'flex', flexDirection: 'row', alignContent: 'center', position: 'relative', height: 'auto', width: '100%', backgroundColor: 'transparent' }}>
+      <textarea className='myTextArea' style={{ height: areaHeight }}></textarea>
+      <svg style={{ position: 'absolute', bottom: '0px', right: '0px', padding: '5px' }} width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6.523 0.353516L0.353516 6.523M6.98064 3.89589L3.8959 6.98063" stroke="white" strokeOpacity="0.4" />
+      </svg>
+    </div >
+
   )
 }
 
@@ -173,9 +172,9 @@ export function Components() {
   return (
 
     <><div style={{ height: '100svh', width: '100svw', display: 'flex', flexDirection: 'column', gap: '30px', padding: '20px', backgroundColor: "hsla(0, 0%, 15%, 1.00)" }}>
-      {/* <CardCaroux><Card state='' cardName={"Integral lens"}>
+      <CardCaroux><Card state='' cardName={"Integral lens"}>
         <p>From your personal perspective, what feelings, beliefs, and past experiences are shaping this?</p>
-      </Card></CardCaroux> */}
+      </Card></CardCaroux>
       {/* <Card state='end' cardName={"Integral lens"}>
         <p>From your personal perspective, what feelings, beliefs, and past experiences are shaping this?</p>
       </Card> */}
