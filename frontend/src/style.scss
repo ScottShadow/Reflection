@@ -1,14 +1,11 @@
 html,
 body,
 #root {
+    display: relative;
     height: 100%;
-    /* Ensures they take up 100% of their parent's height */
     margin: 0;
-    /* Removes default browser margin */
     padding: 0;
-    /* Removes default browser padding */
     overflow: none;
-    /* Prevents scrollbars if content slightly exceeds viewport */
 }
 
 button.primary {

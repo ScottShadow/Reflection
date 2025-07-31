@@ -39,10 +39,20 @@ export function AnchorLink(props) {
 export function Card({ cardName, children, state, style, functions }) {
   let mydisplay = 'flex-end';
   if (state !== 'start') mydisplay = 'space-between';
+  function nextClicked() {
+    if (functions) {
+      functions[1].forEach(innerFunction => innerFunction.call(null))
+    }
+  }
+  function prevClicked() {
+    if (functions) {
+      functions[0].forEach(innerFunction => innerFunction.call(null))
+    }
+  }
   return (
     <div style={{ width: '100svw', position: 'absolute', ...style }}>
 
-      <div className='questionCard' style={{}}>
+      <div className='questionCard' style={{ minHeight: '300px' }}>
         <div className='questionCard' style={{ padding: '0px', filter: 'none' }}>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', padding: "0px 0px", alignItems: 'center' }}>
@@ -52,13 +62,13 @@ export function Card({ cardName, children, state, style, functions }) {
           </div>
         </div>
         <div style={{ width: '100%', display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: mydisplay, alignItems: 'center', alignContent: 'flex-end' }}>
-          {state !== 'start' && <svg onClick={functions.addCard} width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          {state !== 'start' && <svg onClick={prevClicked} width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M3.825 9L9.425 14.6L8 16L0 8L8 0L9.425 1.4L3.825 7H16V9H3.825Z" fill="#E7E0E8" />
           </svg>}
-          {state !== 'end' && <svg onClick={functions.removeCard} width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+          {state !== 'end' && <svg onClick={nextClicked} width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M12.175 9H0V7H12.175L6.575 1.4L8 0L16 8L8 16L6.575 14.6L12.175 9Z" fill="#E7E0E8" />
           </svg>}
-          {state === 'end' && <Button className='secondary' text={"Continue"} functions={functions}></Button>}
+          {state === 'end' && <Button className='secondary' text={"Continue"} functions={functions[2]}></Button>}
 
 
 
@@ -80,13 +90,24 @@ export function TextArea({ areaHeight }) {
   )
 }
 
-export function CardCaroux({ children }) {
-  const [myCards, setCards] = useState([Date.now()]);
+export function CardCaroux({ carouxLength, children }) {
+
+
+
+
+
+  const [myCards, setCards] = useState(() => {
+    let startArray = [];
+    for (let i = 0; i < carouxLength[0]; i++) {
+      startArray.push(Date.now())
+    }
+    return startArray
+  });
+  console.log("CAROUX RERENDER", carouxLength)
   let pos = 10;
   function removeCard() {
     if (myCards.length === 1) { return };
     setCards(prevCard => [...prevCard.slice(0, myCards.length - 1)]);
-    console.log("REMOVING");
   };
   function addCard() {
 
@@ -95,7 +116,15 @@ export function CardCaroux({ children }) {
       return [...prevCard, Date.now()];
     });
   };
-  const functions = { addCard, removeCard };
+  function resetCaroux() {
+    setCards(() => {
+      let startArray = [];
+      for (let i = 0; i < carouxLength[1]; i++) {
+        startArray.push(Date.now())
+      }
+      return startArray;
+    })
+  }
   return (
     <div className="cardCaroux">
 
@@ -104,7 +133,7 @@ export function CardCaroux({ children }) {
         return (
           React.Children.map(children, child => {
             if (React.isValidElement(child))
-              return React.cloneElement(child, { functions: functions, style: { ...child.props.style, top: `${pos * index}px`, left: `${pos * index}px` } })
+              return React.cloneElement(child, { functions: [[addCard, ...child.props.functions[0]], [removeCard, ...child.props.functions[1]], [resetCaroux, ...child.props.functions[2]]], style: { ...child.props.style, top: `${pos * index}px`, left: `${pos * index}px` } })
             return child
           })
         )

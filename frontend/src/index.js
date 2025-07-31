@@ -7,6 +7,7 @@ import './style.scss';
 import { Components } from './pages/components';
 import { MemoryVault } from './pages/memory';
 import Home from './pages/home';
+import { DeepDive, MainPage, QuickCheckIn } from './pages/main';
 const root = ReactDOM.createRoot(document.getElementById('root'))
 
 function Counter() {
@@ -27,6 +28,9 @@ function Links() {
         <Link to='/components'>Components</Link>
         <Link to='/auth/login'>Login</Link>
         <Link to='/counter'>Counter</Link>
+        <Link to='/mainpage'>main</Link>
+        <Link to='/journal/quick'>quickcheck</Link>
+        <Link to='/journal/deep'>deepdive</Link>
       </div>
     </>
   )
@@ -103,6 +107,9 @@ function App() {
         <Route path='/components' element={<Components />}></Route>
         <Route path='/counter' element={<Counter />}></Route>
         <Route path='/memory' element={<MemoryVault />}></Route>
+        <Route path='/mainpage' element={<MainPage />}></Route>
+        <Route path='/journal/quick' element={<QuickCheckIn />}></Route>
+        <Route path='/journal/deep' element={<DeepDive />}></Route>
       </Routes>
     </BrowserRouter>
 
