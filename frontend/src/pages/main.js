@@ -82,8 +82,65 @@ export function QuickCheckIn() {
   )
 }
 export function DeepDive() {
+  const questions = useMemo(() => [
+    ["Identify and Disassociate", ["What specific thoughts, beliefs, or interpretations were going through your mind?"], ["What emotions did you feel, or are you feeling right now?"], ["What did you feel like doing, or what action did you take (or avoided)?"]],
+
+    ["What's Present?",
+      ["What situation, thought, or feeling is currently present for you that you'd like to explore?"], ["Describe what's on your mind. Is it a persistent thought, a difficult conversation, a feeling of unease, or a specific event?"]
+    ],
+    ["Where do you feel this in your body", ["Our emotions often manifest in the body. Where do you physically feel the sensation related to this experience?"]],
+
+    ["Personal Perspective", ["What are your personal feelings, beliefs, or values that are most impacted by this situation?"], ["How do your past experiences or memories relate to how you're seeing this?"], ["What assumptions are you making about yourself in this context?"], ["Is there a personal desire or intention that this situation brings up for you?"]],
+    ["Relational Perspective", ["How are others involved, and what might their perspectives or feelings be?"], ["Are there any group dynamics, team norms, or relationship patterns influencing this?"], ["How might communication (or lack thereof) between people be contributing?"]],
+    ["The Objective", ["What are the purely objective, verifiable facts of the situation, stripped of interpretation?"], ["What is the current state of your physical body (e.g., sleep, nutrition, energy levels, health)?"], ["What are the observable events that led to this point?"]],
+    ["Your Environment", ["What organizational structures, policies, or processes are influencing this?"], ["What power dynamics or resource distributions are evident in this context?"], ["How might the 'rules of the game' (explicit or implicit) affect the situation?"]]], [])
+  const [currDomain, setDomain] = useState(0)
+  const [currQuestion, setQuestion] = useState(1)
+  const [carouxLengthArray, setCarouxLength] = useState(() => {
+    let ans = []
+    questions.forEach(domain => ans.push(domain.length - 1))
+    return ans
+  })
+  const [cardButtonsState, setCardButtonState] = useState('start')
+
+
+  useEffect(() => {
+    if (currQuestion === 1) setCardButtonState('start')
+    if (currQuestion > 1) setCardButtonState('')
+    if (currQuestion === questions[currDomain].length - 1) setCardButtonState('end')
+    console.log("curr question", currQuestion)
+  }, [currDomain, questions, currQuestion])
+
+  function prevQuestion() {
+    if (currQuestion > 1) setQuestion(currQuestion - 1)
+    if (currQuestion === 1) { setDomain(currDomain - 1); setQuestion(questions[currDomain - 1].length - 1); }
+
+  }
+  function nextQuestion() {
+    if (currQuestion < (questions[currDomain].length - 1)) setQuestion(currQuestion + 1)
+  }
+  function finalizeQuestions() {
+    if (currDomain < questions.length - 1) {
+      setQuestion(1);
+      setDomain(currDomain + 1);
+      carouxLengthArray.shift();
+      setCarouxLength(carouxLengthArray)
+    }
+
+    console.log("FINALIZED", currDomain, currQuestion)
+  }
+
   return (
     <>
+      <div style={{ position: 'absolute', top: '15vh' }}>
+        <div className="boxRow" style={{ height: '100vh', width: '100vw', backgroundColor: 'transparent', overflow: 'hidden' }}>
+          <CardCaroux carouxLength={carouxLengthArray}>
+            <Card state={cardButtonsState} cardName={questions[currDomain][0]} diveAnswers={[]} functions={[[prevQuestion], [nextQuestion], [finalizeQuestions]]}>
+              <p>{questions[currDomain][currQuestion][0]}</p>
+            </Card>
+          </CardCaroux>
+        </div>
+      </div>
     </>
   )
 }

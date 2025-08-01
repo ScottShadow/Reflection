@@ -87,7 +87,31 @@ export default function MyProvider({ children }) {
       console.error("Error Creating User: ", error.message);
     }
   }
-  const shared = { user, setUser, getUser, createUser };
+  const diveAnswers = []
+  let diveAnswer = null
+  let diveAnswerIndex = 0
+  function manageDiveAnswer(mydiveAnswer) {
+    if (mydiveAnswer === -1) return diveAnswer
+    console.log("INNER MANAGE", mydiveAnswer)
+    diveAnswer = mydiveAnswer
+    return diveAnswer
+  }
+  //todo use splice to insert/replace in the immediate index
+  function setDiveAnswers(answers, source) {
+    console.log(`answer set: ${answers}, source:${source}`);
+    if (!diveAnswers.includes(answers)) diveAnswers.push(answers);
+    if (source === "prevClicked") diveAnswerIndex -= 1;
+    if (source === "nextClicked") {
+      diveAnswerIndex += 1;
+      if (diveAnswers.length === diveAnswerIndex) return ""
+    };
+    console.log(diveAnswers, diveAnswerIndex)
+    return diveAnswers[diveAnswerIndex]
+  }
+  function getDiveAnswers() {
+    if (diveAnswers.length) return diveAnswers[diveAnswerIndex]
+  }
+  const shared = { user, setUser, getUser, createUser, setDiveAnswers, getDiveAnswers, manageDiveAnswer };
   return (
     <AppContext.Provider value={shared}>
       {children}

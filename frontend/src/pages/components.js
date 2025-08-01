@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import '../style.scss';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { AppContext } from '../index';
 export function Button({ text, functions, style, className = 'primary' }) {
   function onClick() {
     if (!functions) return
@@ -36,29 +37,47 @@ export function AnchorLink(props) {
     </div>
   )
 }
-export function Card({ cardName, children, state, style, functions }) {
+export function Card({ cardName, children, state, style, functions, diveAnswers }) {
   let mydisplay = 'flex-end';
   if (state !== 'start') mydisplay = 'space-between';
+
+  const { manageDiveAnswer, setDiveAnswers, getDiveAnswers } = useContext(AppContext)
+
+  const [textAreaContent, setTextAreaContent] = useState(getDiveAnswers());
   function nextClicked() {
     if (functions) {
       functions[1].forEach(innerFunction => innerFunction.call(null))
     }
+
+
+    setDiveAnswers(manageDiveAnswer(-1), "nextClicked")
+    setTextAreaContent(getDiveAnswers())
+    console.log(getDiveAnswers(), "content")
+
+
   }
   function prevClicked() {
     if (functions) {
       functions[0].forEach(innerFunction => innerFunction.call(null))
     }
+
+    setDiveAnswers(manageDiveAnswer(-1), "prevClicked")
+    setTextAreaContent(getDiveAnswers())
+    console.log(getDiveAnswers(), "content")
   }
+  useEffect(() => {
+    console.log(textAreaContent, "CONTENT CHANGED")
+  }, [textAreaContent])
   return (
     <div style={{ width: '100svw', position: 'absolute', ...style }}>
 
-      <div className='questionCard' style={{ minHeight: '300px' }}>
-        <div className='questionCard' style={{ padding: '0px', filter: 'none' }}>
+      <div className='questionCard' style={{}}>
+        <div className='questionCard' style={{ padding: '0px', filter: 'none', minHeight: '320px' }}>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', padding: "0px 0px", alignItems: 'center' }}>
             <p className='cardName'>{cardName}</p>
             {children}
-            <TextArea areaHeight='200px'></TextArea>
+            <TextArea areaHeight='200px' textContent={textAreaContent}></TextArea>
           </div>
         </div>
         <div style={{ width: '100%', display: 'flex', flexDirection: 'row', flexWrap: 'wrap', justifyContent: mydisplay, alignItems: 'center', alignContent: 'flex-end' }}>
@@ -77,11 +96,18 @@ export function Card({ cardName, children, state, style, functions }) {
     </div>
   )
 }
-export function TextArea({ areaHeight }) {
+export function TextArea({ areaHeight, textContent }) {
+  const { manageDiveAnswer } = useContext(AppContext)
+  const myTextArea = useRef(null)
+  function setText(e) {
+    manageDiveAnswer(e.target.value)
+  }
+  // console.log(myTextArea.current)
+
   return (
 
     <div style={{ display: 'flex', flexDirection: 'row', alignContent: 'center', position: 'relative', height: 'auto', width: '100%', backgroundColor: 'transparent' }}>
-      <textarea className='myTextArea' style={{ height: areaHeight }}></textarea>
+      <textarea className='myTextArea' style={{ height: areaHeight }} ref={myTextArea} defaultValue={textContent} onChange={(e) => setText(e)}></textarea>
       <svg style={{ position: 'absolute', bottom: '0px', right: '0px', padding: '5px' }} width="8" height="8" viewBox="0 0 8 8" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M6.523 0.353516L0.353516 6.523M6.98064 3.89589L3.8959 6.98063" stroke="white" strokeOpacity="0.4" />
       </svg>
@@ -103,20 +129,19 @@ export function CardCaroux({ carouxLength, children }) {
     }
     return startArray
   });
-  console.log("CAROUX RERENDER", carouxLength)
   let pos = 10;
   function removeCard() {
-    if (myCards.length === 1) { return };
-    setCards(prevCard => [...prevCard.slice(0, myCards.length - 1)]);
+    if (myCards.length !== 1)
+      setCards(prevCard => [...prevCard.slice(0, myCards.length - 1)]);
   };
   function addCard() {
 
     setCards(prevCard => {
-      console.log("ADDING")
       return [...prevCard, Date.now()];
     });
   };
   function resetCaroux() {
+
     setCards(() => {
       let startArray = [];
       for (let i = 0; i < carouxLength[1]; i++) {
